@@ -41,9 +41,17 @@ There are some unit tests in `validation.py`.
 
 There is some discussion over the method PAD uses to generate boards,
 specifically regarding the 'minimum orb count'. It's a fact that every board
-change in PAD spawns at least 3 orbs of each color. We've confirmed that for
-actual 'board changes' (note that there is a different active type which
-spawns orbs) this implementation is correct.
+change in PAD spawns at least 3 orbs of each color in the active.
+
+(Note that there are some actives not labeled as board change by PAD but behave
+similarly, e.g. 5167-Suzuki).
+
+We've confirmed that for actual board changes the method used is:
+1) For each of the N colors in the change, spawn 3 orbs of that color
+2) Spawn (board_width * board_height) - (N * 3) orbs of the N colors
+3) Randomize the board.
+
+This code implements that algorithm for generating boards.
 
 ### Sample output
 
